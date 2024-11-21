@@ -301,9 +301,11 @@ def generate_cohort_summary_report(output_dir, kestrel_df, advntr_df, summary_fi
     kestrel_negative = len(kestrel_df[~kestrel_df['Confidence'].str.contains('Low_Precision|High_Precision')])
     total_kestrel = kestrel_positive + kestrel_negative
 
-    # Handle missing 'Message' column in adVNTR results
+    # Handle missing 'Message'/'VID' column in adVNTR results
     if 'Message' not in advntr_df.columns:
         advntr_df['Message'] = None  # Add a default 'Message' column with None values if it's missing
+    if 'VID' not in advntr_df.columns:
+        advntr_df['VID'] = None  # Add a default 'VID' column with None values if it's missing
 
     # Summary statistics for adVNTR
     advntr_positive = len(advntr_df[(advntr_df['VID'].notna()) &
